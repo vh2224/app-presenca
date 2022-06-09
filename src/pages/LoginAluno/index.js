@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, SafeAreaVie
 import * as Animatable from 'react-native-animatable';
 import { Context } from '../../context/userContext';
 
-export default function Login() {
+export default function LoginAluno() {
 
     const {loginUser} = useContext(Context);
 
@@ -46,12 +46,9 @@ export default function Login() {
 
             <TouchableOpacity onPress={() => {
             loginUser(matricula, senha)
-            navigation.navigate('Home')}}
+            navigation.navigate('HomeAluno')}}
              style={styles.button}>
                 <Text style={styles.buttonText}>Acessar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('LoginAluno')} style={styles.button}>
-                <Text style={styles.buttonText}>Sou Aluno</Text>
             </TouchableOpacity>
         </Animatable.View>
     </SafeAreaView>

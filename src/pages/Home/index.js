@@ -79,6 +79,11 @@ export default function Home() {
                             Ver Perfil
                             </Text>
                         </TouchableOpacity>
+                        <TouchableOpacity style={styles.buttonConteudo}>
+                            <Text style={styles.buttonText}>
+                            Sair
+                            </Text>
+                        </TouchableOpacity>
                     </View>
     
                     <View style={styles.buttonsCadastro}>
@@ -108,17 +113,13 @@ export default function Home() {
                             )
                         })}
                     </View>
-    
-                    <TouchableOpacity style={styles.buttonConteudo} onPress={() => navigation.navigate('HomeAluno')}>
-                        <Text style={styles.buttonText}>Página Home Aluno</Text>
-                    </TouchableOpacity>
                 </ScrollView>
             </SafeAreaView>
         )
     } else {
         return (
             <SafeAreaView>
-                <Text> Vai tomar no cu </Text>
+                <Text> Erro </Text>
             </SafeAreaView>
         )
     }

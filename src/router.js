@@ -11,6 +11,7 @@ import HomeAluno from './pages/HomeAluno';
 import PerfilAluno from './pages/PerfilAluno';
 import PerfilProfessor from './pages/PerfilProfessor';
 import AuthToken from './pages/AuthToken';
+import LoginAluno from './pages/LoginAluno';
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +58,10 @@ function Routes() {
             <Stack.Screen 
             name="PerfilProfessor"
             component={PerfilProfessor}
+            />
+            <Stack.Screen 
+            name="LoginAluno"
+            component={LoginAluno}
             />
         </Stack.Navigator>
     )
