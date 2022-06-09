@@ -70,22 +70,6 @@ export default function HomeAluno() {
     
                 <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
     
-    
-                    <View style={styles.buttonsCadastro}>
-                        <Text style={styles.textCadastro}>Perfil</Text>
-    
-                        <TouchableOpacity style={styles.buttonConteudo} onPress={() => navigation.navigate('PerfilProfessor')}>
-                            <Text style={styles.buttonText}>
-                            Ver Perfil
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonConteudo}>
-                            <Text style={styles.buttonText}>
-                            Sair
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-    
                     <Text style={styles.text}>Disciplinas matriculadas</Text>
     
                     <View style={styles.containerDisciplina}>

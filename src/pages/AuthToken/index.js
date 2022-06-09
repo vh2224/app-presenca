@@ -16,7 +16,6 @@ export default function AuthToken() {
                     const data = await api.get('/professor', {
                         headers: { 'Authorization': `Bearer ${id}`}
                     });
-                    console.log(data.data);
                     navigation.navigate('Home');
                 } catch (e) {
                     navigation.navigate('Login');

@@ -9,8 +9,6 @@ export default function Conteudo() {
 
   const { data } = route.params;
 
-  console.log(data.conteudos);
-
  return (
    <SafeAreaView style={styles.container}>
      <View style={styles.contentArea}>

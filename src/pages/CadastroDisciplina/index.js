@@ -1,22 +1,61 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
+import { Picker } from '@react-native-picker/picker'
+import api from '../../services/api';
+import { Context } from '../../context/userContext';
 
 export default function CadastroDisciplina() {
+
+    const {registerDiscipline} = useContext(Context);
+
+    const [nomeDisciplina, setNomeDisciplina] = useState('');
+    const [codigoDisciplina, setCodigoDisciplina] = useState();
+    const [aluno, setAluno] = useState();
+    const [alunos, setAlunos] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+          try {
+            const alunos = await api.get(`/alunos`, {
+            });
+            setAlunos(alunos.data);
+            
+            } catch (e) {
+                console.log(e)
+            }
+        })
+        ();
+      }, [])
+
  return (
    <SafeAreaView style={styles.container}>
        <Text style={styles.textTitle}>Cadastro de Disciplina</Text>
        <View style={styles.contentForm}>
           <View style={styles.form}>
-            <Text style={styles.text}>Matrícula:</Text>
-            <TextInput style={styles.textInput} />
+            <Text style={styles.text}>Disciplina:</Text>
+            <TextInput 
+            style={styles.textInput}
+            value={nomeDisciplina}
+            onChangeText={setNomeDisciplina}
+            />
 
-            <Text style={styles.text}>Matrícula:</Text>
-            <TextInput style={styles.textInput} />
+            <Text style={styles.text}>Codigo:</Text>
+            <TextInput 
+            style={styles.textInput}
+            value={codigoDisciplina}
+            onChangeText={setCodigoDisciplina}
+            />
 
-            <Text style={styles.text}>Matrícula:</Text>
-            <TextInput style={styles.textInput} />
+            <Text style={styles.text}>Aluno:</Text>
+            <Picker style={styles.selectInput} selectedValue={aluno} onValueChange={(aluno) => setAluno(aluno)}> 
+                {alunos.map((aluno) => {
+                    return (
+                        <Picker.Item label={aluno.nome} value={aluno.id} key={aluno.id}/>
+                    )
+                })}
+            </Picker>
 
-            <TouchableOpacity style={styles.buttonConteudo}>
+            <TouchableOpacity style={styles.buttonConteudo} onPress={()=> {registerDiscipline(nomeDisciplina, codigoDisciplina, aluno)}}>
                 <Text style={styles.buttonText}>
                   Cadastrar
                 </Text>
@@ -81,4 +120,14 @@ const styles = StyleSheet.create({
         color: "#FFF",
         fontWeight: 'bold'
     },
+    selectInput: {
+        fontSize: 18,
+        fontWeight: "bold",
+        backgroundColor: "#FFF",
+        color: "#000",
+        borderRadius: 6,
+        margin: 5,
+        padding: 5,
+        fontWeight: "bold"
+      },
 })

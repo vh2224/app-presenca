@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, SafeAreaView, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Disciplina from '../../components/Disciplina';
 import * as Location from 'expo-location';
 import * as LocalAuthentication from 'expo-local-authentication';
+import { BlurView } from 'expo-blur';
 
 import api from '../../services/api';
+
 
 export default function Home() {
 

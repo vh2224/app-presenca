@@ -1,22 +1,42 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
+import { Context } from '../../context/userContext';
 
 export default function CadastroAluno() {
+
+    const { registerStudent } = useContext(Context);
+
+    const [nome, setNome] = useState('');
+    const [matricula, setMatricula] = useState();
+    const [senha, setSenha] = useState('');
+
  return (
    <SafeAreaView style={styles.container}>
        <Text style={styles.textTitle}>Cadastro de Aluno</Text>
        <View style={styles.contentForm}>
           <View style={styles.form}>
-            <Text style={styles.text}>Matrícula:</Text>
-            <TextInput style={styles.textInput} />
+            <Text style={styles.text}>Nome</Text>
+            <TextInput 
+            style={styles.textInput}
+            value={nome}
+            onChangeText={setNome}
+            />
 
-            <Text style={styles.text}>Matrícula:</Text>
-            <TextInput style={styles.textInput} />
+            <Text style={styles.text}>Matrícula</Text>
+            <TextInput 
+            style={styles.textInput}
+            value={matricula}
+            onChangeText={setMatricula}
+            />
 
-            <Text style={styles.text}>Matrícula:</Text>
-            <TextInput style={styles.textInput} />
+            <Text style={styles.text}>Senha</Text>
+            <TextInput 
+            style={styles.textInput}
+            value={senha}
+            onChangeText={setSenha}
+            />
 
-            <TouchableOpacity style={styles.buttonConteudo}>
+            <TouchableOpacity style={styles.buttonConteudo} onPress={()=> {registerStudent(nome, matricula, senha)}}>
                 <Text style={styles.buttonText}>
                   Cadastrar
                 </Text>
