@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Disciplina from '../../components/Disciplina';
 import * as Location from 'expo-location';
+import * as LocalAuthentication from 'expo-local-authentication';
 
 import api from '../../services/api';
 
@@ -14,6 +15,8 @@ export default function Home() {
     const [errorMsg, setErrorMsg] = useState(null);
     const [authTokenProfessor, setAuthTokenProfessor] = useState(false);
     const [disciplinas, setDisciplinas] = useState([]);
+    const [visibleModal, setVisibleModal] = useState(false);
+    const [handleLogin, setHandleLogin] = useState(false);
 
     useEffect(() =>{
         const signToken = async () => {
@@ -57,6 +60,25 @@ export default function Home() {
         text = JSON.stringify(location);
     }
 
+    function biometriaPerfil() {
+        setHandleLogin(true);
+        verifyUserAuthentication();
+    }
+
+    async function verifyUserAuthentication(){
+        if(handleLogin){
+            const authentication = await LocalAuthentication.authenticateAsync();
+            if (authentication.success){
+                navigation.navigate('PerfilProfessor');
+                setHandleLogin(false)
+            }
+        }
+    }
+
+    function agradecimentos() {
+        setVisibleModal(true)
+    }
+
 
     if(authTokenProfessor){
         return (
@@ -74,7 +96,7 @@ export default function Home() {
                     <View style={styles.buttonsCadastro}>
                         <Text style={styles.textCadastro}>Perfil</Text>
     
-                        <TouchableOpacity style={styles.buttonConteudo} onPress={() => navigation.navigate('PerfilProfessor')}>
+                        <TouchableOpacity style={styles.buttonConteudo} onPress={() => biometriaPerfil()}>
                             <Text style={styles.buttonText}>
                             Ver Perfil
                             </Text>
@@ -113,6 +135,29 @@ export default function Home() {
                             )
                         })}
                     </View>
+
+                    <TouchableOpacity style={styles.buttonConteudo} onPress={() => agradecimentos()}>
+                        <Text style={styles.buttonText}>Agradecimentos</Text>
+                    </TouchableOpacity>
+
+                    <Modal transparent={true} visible={visibleModal}>
+                        <BlurView style={styles.blur}>
+                            <View style={styles.modal}>
+                                <Text style={styles.nome1}>PEDRO HENRIQUE VASCONCELOS</Text>
+                                <Text style={styles.matricula}>201911133</Text>
+
+                                <Text style={styles.nome}>DAVI BERNARDO</Text>
+                                <Text style={styles.matricula}>201910960</Text>
+
+                                <Text style={styles.nome}>VINICIUS ALMEIDA</Text>
+                                <Text style={styles.matricula}>201911133</Text>
+
+                                <TouchableOpacity style={styles.buttonModal} onPress={() => setVisibleModal(false)}>
+                                    <Text style={styles.buttonText}>Voltar</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </BlurView>
+                    </Modal>
                 </ScrollView>
             </SafeAreaView>
         )
@@ -182,4 +227,36 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20
     },
+    blur: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    modal: {
+        height: 400,
+        width: 350,
+        backgroundColor: '#FFF',
+        alignItems: 'center'
+    },
+    buttonModal: {
+        width: 100,
+        height: 50,
+        backgroundColor: '#781e20',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 80,
+        borderRadius: 10
+    },
+    nome: {
+        fontWeight: 'bold',
+        marginTop: 22
+    },
+    matricula: {
+        fontWeight: 'bold',
+        color: '#781e20'
+    },
+    nome1: {
+        fontWeight: 'bold',
+        marginTop: 65
+    }
 })
